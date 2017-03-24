@@ -260,11 +260,14 @@ function initialize_field( $el ) {
                         valid = false;
                     }
                     if(!valid){
-                        $field.addClass('invalid');
-                        $field.find('.init-crop-button').attr('disabled', 'disabled');
-// changed for translation
-                        alert(acf._e('image_crop', 'size_warning') + '\n\n' + warnings.join('\n\n'));
-// changed END
+                        // If its an aspect ratio crop then allow the user to use a smaller image than target size
+                        if($options.data('crop_type' == 'aspect') && $options.data('force_crop')) {
+                            initCrop($field);
+                        } else {
+                            $field.addClass('invalid');
+                            $field.find('.init-crop-button').attr('disabled', 'disabled');
+                            alert(acf._e('image_crop', 'size_warning') + '\n\n' + warnings.join('\n\n'));
+                        }
                     }
                     else{
                         if($options.data('force_crop')){
@@ -328,6 +331,9 @@ function initialize_field( $el ) {
             options.minHeight = $options.data('height');
             options.x2 = $options.data('width');
             options.y2 = $options.data('height');
+        }
+        else if($options.data('crop_type' == 'aspect')) {
+            options.aspectRatio = $options.data('width') + ':' + $options.data('height');
         }
         else if($options.data('crop_type') == 'min'){
             if($options.data('width')){

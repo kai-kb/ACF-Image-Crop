@@ -139,7 +139,8 @@ class acf_field_image_crop extends acf_field_image {
             'class'         => 'crop-type-select',
             'choices'       => array(
                 'hard'          => __('Hard crop', 'acf-image_crop'),
-                'min'           => __('Minimal dimensions', 'acf-image_crop')
+                'min'           => __('Minimal dimensions', 'acf-image_crop'),
+				'aspect'        => __('Aspect Ratio', 'acf-image_crop')
             )
         ));
 
@@ -914,6 +915,41 @@ class acf_field_image_crop extends acf_field_image {
     function update_value( $value, $post_id, $field ) {
         return $value;
     }
+
+        /*
+    *  validate_value()
+    *  Implement this function to avoid parent function taking over and trying to validate json data
+    */
+    function validate_value( $valid, $value, $field, $input ){
+
+        // bail early if empty
+        if( empty($value) ) return $valid;
+
+        
+        // bail early if is numeric
+        if( is_numeric($value) ) return $valid;
+
+
+        // bail early if not basic string
+        if( !is_string($value) ) return $valid;
+
+
+        // decode json
+        $image = json_decode($value);
+
+      // TODO populate $error if poorly formed JSON or missing attributes
+
+        // append error
+        if( !empty($errors) ) {
+
+            $valid = implode("\n", $errors);
+
+        }
+
+        // return
+        return $valid;
+
+      }
 
 
 
