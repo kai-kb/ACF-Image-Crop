@@ -4,7 +4,7 @@ class acf_field_image_crop extends acf_field_image {
 
 
     /*
-    *  __construct
+    *  initialize
     *
     *  This function will setup the field type data
     *
@@ -16,7 +16,7 @@ class acf_field_image_crop extends acf_field_image {
     *  @return  n/a
     */
 
-    function __construct() {
+    function initialize() {
 
         /*
         *  name (string) Single word, no spaces. Underscores allowed
@@ -83,7 +83,7 @@ class acf_field_image_crop extends acf_field_image {
 
 
         // do not delete!
-        acf_field::__construct();
+        acf_field::initialize();
         //parent::__construct();
 
     }
