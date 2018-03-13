@@ -1,8 +1,7 @@
 {
     "name": "kai-kb/ACF-Image-Crop",
-    "version": "99.0.0",
-    "dist": {
-        "url": "https://github.com/kai-kb/ACF-Image-Crop/archive/master.zip",
-        "type": "zip"
+    "type": "wordpress-plugin",
+    "require": {
+        "composer/installers": "v1.0.6"
     }
 }
